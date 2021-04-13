@@ -1,6 +1,6 @@
 package com.http.stub
 
-import com.http.stub.service.{Service, Get, Post}
+import com.http.stub.service.{Get, Post, Service}
 
 case class HostPortAndService(host: String = "localhost", port: Int, service: Service)
 

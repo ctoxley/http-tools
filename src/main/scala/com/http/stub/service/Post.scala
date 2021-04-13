@@ -1,11 +1,10 @@
 package com.http.stub.service
-import com.github.tomakehurst.wiremock.client.{MappingBuilder, WireMock}
-import com.github.tomakehurst.wiremock.stubbing.StubImport.stubImport
-import com.http.stub.WireMockCommonMapping.post
+import com.http.stub.WireMockCommonMapping.{post, postMatchingOnBody}
 
 class Post extends Service {
 
-  private def devNullMapping: MappingBuilder = post(uri = "/dev/null")
+  private val devNull = post(uri = "/dev/null")
+  private val bodyMatchThis = postMatchingOnBody(uri = "/post/body/match/true", requestBodyMatch = "true", responseBody = """{"matched":true}""")
 
-  override def allMappings = Seq(devNullMapping)
+  override def allMappings = Seq(devNull, bodyMatchThis)
 }

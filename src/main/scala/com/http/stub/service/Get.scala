@@ -3,8 +3,8 @@ import com.http.stub.WireMockCommonMapping.{get, getFile}
 
 class Get extends Service {
 
-  val getFileMapping = getFile(uri = "/get/file", fileLocation = "get/file/get-file.json")
-  val getEmpty = get(uri = "/get/empty", body = "{}")
+  private val getJsonFile = getFile(uri = "/get/file", responseFileLocation = "get/file/get-file.json")
+  private val getEmpty = get(uri = "/get/empty")
 
-  override def allMappings = Seq(getFileMapping, getEmpty)
+  override def allMappings = Seq(getJsonFile, getEmpty)
 }
