@@ -20,7 +20,7 @@ object WireMockCommonMapping {
   }
 
   def postMatchingOnBody(uri: String, status: Int = HttpStatus.OK_200, requestBodyMatch: String, responseBody: String): MappingBuilder = {
-    logger.info(s"POST $uri => $status")
+    logger.info(s"POST $uri => $requestBodyMatch => $responseBody => $status")
     WireMock.post(urlMatching(uri)).withRequestBody(containing(requestBodyMatch))
       .willReturn(aResponse().withStatus(status).withBody(responseBody))
   }
@@ -35,5 +35,7 @@ object WireMockCommonMapping {
     WireMock.get(urlMatching(uri)).willReturn(aJsonResponse(status).withBodyFile(responseFileLocation))
   }
 
-  def aJsonResponse(status: Int): ResponseDefinitionBuilder = aResponse.withStatus(status).withHeader(CONTENT_TYPE, MediaType.json)
+  def aJsonResponse(status: Int): ResponseDefinitionBuilder = aResponse.withStatus(status)
+    .withHeader(CONTENT_TYPE, MediaType.json)
+    .withTransformers("response-template")
 }
