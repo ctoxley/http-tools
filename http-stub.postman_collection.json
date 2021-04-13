@@ -1,0 +1,48 @@
+{
+	"info": {
+		"_postman_id": "32a24b79-d68d-4642-b0e1-9b68ec63cb77",
+		"name": "http-stub",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/dev/null",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:7020/dev/null",
+					"host": [
+						"localhost"
+					],
+					"port": "7020",
+					"path": [
+						"dev",
+						"null"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/get/file",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:7010/get/file",
+					"host": [
+						"localhost"
+					],
+					"port": "7010",
+					"path": [
+						"get",
+						"file"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
