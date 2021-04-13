@@ -44,6 +44,28 @@
 			"response": []
 		},
 		{
+			"name": "/get/param1/one/param2/two",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:7010/get/param1/one/param2/two",
+					"host": [
+						"localhost"
+					],
+					"port": "7010",
+					"path": [
+						"get",
+						"param1",
+						"one",
+						"param2",
+						"two"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "/dev/null",
 			"request": {
 				"method": "POST",

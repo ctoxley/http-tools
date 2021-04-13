@@ -6,7 +6,7 @@ import org.apache.http.HttpHeaders._
 import org.eclipse.jetty.http.HttpStatus
 import org.slf4j.LoggerFactory
 
-object WireMockCommonMapping {
+object Mapping {
 
   private val logger = LoggerFactory.getLogger(getClass)
 
@@ -35,7 +35,15 @@ object WireMockCommonMapping {
     WireMock.get(urlMatching(uri)).willReturn(aJsonResponse(status).withBodyFile(responseFileLocation))
   }
 
-  def aJsonResponse(status: Int): ResponseDefinitionBuilder = aResponse.withStatus(status)
+  def aJsonResponse(status: Int): ResponseDefinitionBuilder =
+    aResponse.withStatus(status)
     .withHeader(CONTENT_TYPE, MediaType.json)
     .withTransformers("response-template")
+
+  lazy val firstPathParam: String = pathParam(0)
+  lazy val secondPathParam: String = pathParam(1)
+  lazy val thirdPathParam: String = pathParam(2)
+  lazy val fourthPathParam: String = pathParam(3)
+  lazy val fifthPathParam: String = pathParam(4)
+  private def pathParam(index: Int): String = s"{{request.path.[$index]}}"
 }
