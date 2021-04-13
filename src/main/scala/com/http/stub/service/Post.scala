@@ -7,7 +7,5 @@ class Post extends Service {
 
   private def devNullMapping: MappingBuilder = post(uri = "/dev/null")
 
-  override def stubWith(wireMock: WireMock): Unit = {
-    wireMock.importStubMappings(stubImport().stub(devNullMapping))
-  }
+  override def allMappings = Seq(devNullMapping)
 }

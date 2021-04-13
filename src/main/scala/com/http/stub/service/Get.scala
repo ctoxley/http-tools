@@ -1,13 +1,10 @@
 package com.http.stub.service
-import com.github.tomakehurst.wiremock.client.WireMock
-import com.github.tomakehurst.wiremock.stubbing.StubImport.stubImport
-import com.http.stub.WireMockCommonMapping.getFile
+import com.http.stub.WireMockCommonMapping.{get, getFile}
 
 class Get extends Service {
 
-  def getFileMapping = getFile(uri = "/get/file", fileLocation = "get/file/get-file.json")
+  val getFileMapping = getFile(uri = "/get/file", fileLocation = "get/file/get-file.json")
+  val getEmpty = get(uri = "/get/empty", body = "{}")
 
-  override def stubWith(wireMock: WireMock): Unit = {
-    wireMock.importStubMappings(stubImport().stub(getFileMapping))
-  }
+  override def allMappings = Seq(getFileMapping, getEmpty)
 }

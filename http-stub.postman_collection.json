@@ -42,6 +42,25 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "/get/empty",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:7010/get/empty",
+					"host": [
+						"localhost"
+					],
+					"port": "7010",
+					"path": [
+						"get",
+						"empty"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
