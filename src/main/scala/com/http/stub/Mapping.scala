@@ -2,48 +2,34 @@ package com.http.stub
 
 import com.github.tomakehurst.wiremock.client.WireMock._
 import com.github.tomakehurst.wiremock.client.{MappingBuilder, ResponseDefinitionBuilder, WireMock}
+import com.github.tomakehurst.wiremock.matching.UrlPattern
 import org.apache.http.HttpHeaders._
 import org.eclipse.jetty.http.HttpStatus
 import org.slf4j.LoggerFactory
 
 object Mapping {
 
-  private val logger = LoggerFactory.getLogger(getClass)
-
   object MediaType {
     val json = "application/json"
   }
-
-  def post(uri: String, status: Int = HttpStatus.OK_200, responseBody: String = "{}"): MappingBuilder = {
-    logger.info(s"POST $uri => $status")
-    WireMock.post(urlMatching(uri)).willReturn(aResponse().withStatus(status).withBody(responseBody))
-  }
-
-  def postMatchingOnBody(uri: String, status: Int = HttpStatus.OK_200, requestBodyMatch: String, responseBody: String): MappingBuilder = {
-    logger.info(s"POST $uri => $requestBodyMatch => $responseBody => $status")
-    WireMock.post(urlMatching(uri)).withRequestBody(containing(requestBodyMatch))
-      .willReturn(aResponse().withStatus(status).withBody(responseBody))
-  }
-
-  def get(uri: String, status: Int = HttpStatus.OK_200, responseBody: String = "{}"): MappingBuilder = {
-    logger.info(s"GET $uri => $status => $responseBody")
-    WireMock.get(urlMatching(uri)).willReturn(aJsonResponse(status).withBody(responseBody))
-  }
-
-  def getFile(uri: String, status: Int = HttpStatus.OK_200, responseFileLocation: String): MappingBuilder = {
-    logger.info(s"GET $uri => $status => $responseFileLocation")
-    WireMock.get(urlMatching(uri)).willReturn(aJsonResponse(status).withBodyFile(responseFileLocation))
-  }
-
-  def aJsonResponse(status: Int): ResponseDefinitionBuilder =
-    aResponse.withStatus(status)
-    .withHeader(CONTENT_TYPE, MediaType.json)
-    .withTransformers("response-template")
 
   lazy val firstPathParam: String = pathParam(0)
   lazy val secondPathParam: String = pathParam(1)
   lazy val thirdPathParam: String = pathParam(2)
   lazy val fourthPathParam: String = pathParam(3)
   lazy val fifthPathParam: String = pathParam(4)
-  private def pathParam(index: Int): String = s"{{request.path.[$index]}}"
+  def pathParam(index: Int): String = s"{{request.path.[$index]}}"
+
+  def firstQueryParam(key: String): String = queryParam(key, 0)
+  def secondQueryParam(key: String): String = queryParam(key,1)
+  def thirdQueryParam(key: String): String = queryParam(key,2)
+  def fourthQueryParam(key: String): String = queryParam(key,3)
+  def fifthQueryParam(key: String): String = queryParam(key,4)
+  def queryParam(key: String, index: Int): String = s"{{request.query.$key.$index}}"
+  def queryParam(key: String): String = s"{{request.query.$key}}"
+
+  def aJsonResponse(status: Int): ResponseDefinitionBuilder =
+    aResponse.withStatus(status)
+    .withHeader(CONTENT_TYPE, MediaType.json)
+    .withTransformers("response-template")
 }

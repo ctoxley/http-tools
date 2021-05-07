@@ -66,6 +66,65 @@
 			"response": []
 		},
 		{
+			"name": "/get/query-param/list/two?list=1&list=2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:7010/get/query-param/list/two?list=1&list=2",
+					"host": [
+						"localhost"
+					],
+					"port": "7010",
+					"path": [
+						"get",
+						"query-param",
+						"list",
+						"two"
+					],
+					"query": [
+						{
+							"key": "list",
+							"value": "1"
+						},
+						{
+							"key": "list",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/get/query-param/match/name/true?name=true",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:7010/get/query-param/match/name/true?name=true",
+					"host": [
+						"localhost"
+					],
+					"port": "7010",
+					"path": [
+						"get",
+						"query-param",
+						"match",
+						"name",
+						"true"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "/dev/null",
 			"request": {
 				"method": "POST",
