@@ -1,9 +1,9 @@
 package com.http.stub.service
 
 import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
-import com.http.stub.PostMapping.{post, postMatchingOnBody}
+import com.http.stub.mapping.Posts
 
-class Post extends Service {
+class Post extends Service with Posts {
 
   override def allMappings = Seq(
     post(

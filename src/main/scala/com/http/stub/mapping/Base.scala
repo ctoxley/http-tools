@@ -1,17 +1,17 @@
-package com.http.stub
+package com.http.stub.mapping
 
+import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder
 import com.github.tomakehurst.wiremock.client.WireMock._
-import com.github.tomakehurst.wiremock.client.{MappingBuilder, ResponseDefinitionBuilder, WireMock}
-import com.github.tomakehurst.wiremock.matching.UrlPattern
 import org.apache.http.HttpHeaders._
-import org.eclipse.jetty.http.HttpStatus
 import org.slf4j.LoggerFactory
 
-object Mapping {
+trait Base {
 
   object MediaType {
     val json = "application/json"
   }
+
+  val logger = LoggerFactory.getLogger(getClass)
 
   lazy val firstPathParam: String = pathParam(0)
   lazy val secondPathParam: String = pathParam(1)

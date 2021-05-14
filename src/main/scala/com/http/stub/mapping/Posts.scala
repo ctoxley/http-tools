@@ -1,14 +1,12 @@
-package com.http.stub
+package com.http.stub.mapping
 
-import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, containing, urlMatching}
+import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, containing}
 import com.github.tomakehurst.wiremock.client.{MappingBuilder, WireMock}
 import com.github.tomakehurst.wiremock.matching.UrlPattern
 import org.eclipse.jetty.http.HttpStatus
 import org.slf4j.LoggerFactory
 
-object PostMapping {
-
-  private val logger = LoggerFactory.getLogger(getClass)
+trait Posts extends Base {
 
   def post(uri: UrlPattern, status: Int = HttpStatus.OK_200, responseBody: String = "{}"): MappingBuilder = {
     logger.info(s"POST $uri => $status")

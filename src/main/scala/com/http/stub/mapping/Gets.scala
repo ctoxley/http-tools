@@ -1,14 +1,10 @@
-package com.http.stub
+package com.http.stub.mapping
 
 import com.github.tomakehurst.wiremock.client.{MappingBuilder, WireMock}
 import com.github.tomakehurst.wiremock.matching.UrlPattern
-import com.http.stub.Mapping.aJsonResponse
 import org.eclipse.jetty.http.HttpStatus
-import org.slf4j.LoggerFactory
 
-object GetMapping {
-
-  private val logger = LoggerFactory.getLogger(getClass)
+trait Gets extends Base {
 
   def get(uri: UrlPattern, status: Int = HttpStatus.OK_200, responseBody: String = "{}",
           additionalRequestMatching: MappingBuilder => MappingBuilder = mb => mb): MappingBuilder = {

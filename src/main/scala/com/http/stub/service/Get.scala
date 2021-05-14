@@ -1,9 +1,8 @@
 package com.http.stub.service
 import com.github.tomakehurst.wiremock.client.WireMock.{equalTo, urlEqualTo, urlMatching, urlPathEqualTo}
-import com.http.stub.GetMapping.{get, getFile}
-import com.http.stub.Mapping._
+import com.http.stub.mapping.Gets
 
-class Get extends Service {
+class Get extends Service with Gets {
 
   override def allMappings = Seq(
     getFile(
