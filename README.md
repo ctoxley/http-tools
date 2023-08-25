@@ -6,6 +6,10 @@
 
 This module wraps WireMock and provides a template for stubbing endpoints.
 
+To run use:
+
+```sbt runHttpStub```
+
 #### Configuration
 
   - `.stubCorsEnabled(true)` Automatic sending of CORS headers on stub responses.

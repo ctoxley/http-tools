@@ -7,7 +7,7 @@ import com.github.tomakehurst.wiremock.extension.responsetemplating.ResponseTemp
 object Configuration {
 
   val wiremock = WireMockConfiguration.options
-    .usingFilesUnderDirectory("src/main/resources")
+    .usingFilesUnderDirectory("modules/http-stub/src/main/resources")
     .stubCorsEnabled(true)
     .notifier(new Slf4jNotifier(true))
     .extensions(new ResponseTemplateTransformer(false))

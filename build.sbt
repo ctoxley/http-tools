@@ -1,5 +1,7 @@
 
-lazy val wiremockWrapper = (project in file("modules/http-stub"))
+addCommandAlias("runHttpStub", "; httpStub/run")
+
+lazy val httpStub = (project in file("modules/http-stub"))
   .settings(
       name := "http-stub",
       scalaVersion := "2.13.4",

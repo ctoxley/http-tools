@@ -3,7 +3,6 @@ package com.http.stub
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.stubbing.StubImport.stubImport
-import com.http.stub.service.Service
 import org.slf4j.LoggerFactory
 
 object Application extends App {
