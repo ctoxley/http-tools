@@ -1,10 +1,12 @@
-package com.http.stub.service
+package com.http.stub.mapping
+
+import com.github.tomakehurst.wiremock.client.MappingBuilder
 import com.github.tomakehurst.wiremock.client.WireMock.{equalTo, urlEqualTo, urlMatching, urlPathEqualTo}
-import com.http.stub.mapping.Gets
+import com.http.stub.mapping.template.Gets
 
-class Get extends Service with Gets {
+object GetMappings extends Gets {
 
-  override def allMappings = Seq(
+  val all: Seq[MappingBuilder] = Seq(
     getFile(
       uri = urlEqualTo("/get/file"),
       responseFileLocation = "get/file/get-file.json"

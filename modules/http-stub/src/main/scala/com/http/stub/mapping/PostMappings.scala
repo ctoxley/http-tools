@@ -1,11 +1,13 @@
-package com.http.stub.service
+package com.http.stub.mapping
 
+import com.github.tomakehurst.wiremock.client.MappingBuilder
 import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
-import com.http.stub.mapping.Posts
+import com.http.stub.{Service, ServiceMappings}
+import com.http.stub.mapping.template.Posts
 
-class Post extends Service with Posts {
+object PostMappings extends Posts {
 
-  override def allMappings = Seq(
+  val all: Seq[MappingBuilder] = Seq(
     post(
       uri = urlEqualTo("/dev/null")
     ),
