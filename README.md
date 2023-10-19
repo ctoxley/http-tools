@@ -16,3 +16,8 @@ To run use:
   - `.notifier(new Slf4jNotifier(true))` Use SLF4 for logging. (WireMock wraps all logging in its own `Notifier` interface)
   - `.extensions(new ResponseTemplateTransformer(false))` Enable attributes of the request to be used in generating the response. 
 
+## http-script
+
+This module is a base for creating scripts to call http endpoints.
+
+Two run the tests you need `http-stub` running. 
