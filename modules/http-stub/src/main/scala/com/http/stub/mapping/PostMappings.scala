@@ -2,7 +2,6 @@ package com.http.stub.mapping
 
 import com.github.tomakehurst.wiremock.client.MappingBuilder
 import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
-import com.http.stub.{Service, ServiceMappings}
 import com.http.stub.mapping.template.Posts
 
 object PostMappings extends Posts {
