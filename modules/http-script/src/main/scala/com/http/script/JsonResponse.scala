@@ -14,7 +14,7 @@ case class JsonResponse(response: Response) {
 
   def isSuccess = response.statusCode >= 200 && response.statusCode <= 299
 
-  def safeStrOpt(field: String): Option[String] = if (json.obj.contains(field))
+  def strObjTry(field: String): Option[String] = if (json.obj.contains(field))
     json(field).strOpt else None
 
   def getObjByPath(path: String): Value = {

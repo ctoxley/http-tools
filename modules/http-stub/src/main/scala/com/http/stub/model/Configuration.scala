@@ -1,4 +1,4 @@
-package com.http.stub
+package com.http.stub.model
 
 import com.github.tomakehurst.wiremock.common.Slf4jNotifier
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration

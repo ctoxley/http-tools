@@ -8,8 +8,8 @@ object JsonResponseTest  extends TestSuite {
     test("Get") {
       val response = GetClient.getFile
       assert(response("name").str == "get-file")
-      assert(response.safeStrOpt("name") == Some("get-file"))
-      assert(response.safeStrOpt("notPresent") == None)
+      assert(response.strObjTry("name") == Some("get-file"))
+      assert(response.strObjTry("notPresent") == None)
       assert(response.getObjByPath("level-1.level-2.level-3")("name").str == "level-3")
     }
     test("Validation") {
