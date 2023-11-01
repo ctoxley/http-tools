@@ -9,9 +9,9 @@ sealed trait MockService {
   val port: Int
 }
 
-case class WireMockService(name: String, host: String = "localhost", port: Int, mappings: Seq[MappingBuilder]) extends MockService
+case class WireMockService(name: String, host: String = "127.0.0.1", port: Int, mappings: Seq[MappingBuilder]) extends MockService
 
-@upickle.implicits.key("DynaMockService") case class DynaMockService(name: String, host: String = "localhost", port: Int, router: Router) extends MockService
+@upickle.implicits.key("DynaMockService") case class DynaMockService(name: String, host: String = "127.0.0.1", port: Int, router: Router) extends MockService
 
 object Service {
 
