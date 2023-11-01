@@ -12,6 +12,7 @@ permissions:
   contents: read
 
 jobs:
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -22,5 +23,7 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: 'sbt'
+    - name: Start HTTP Stub
+      run: sbt "httpStub / run"
     - name: Run tests
       run: sbt test

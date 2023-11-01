@@ -8,7 +8,7 @@ object PostMappings extends Posts {
 
   val all: Seq[MappingBuilder] = Seq(
     post(
-      uri = urlEqualTo("/dev/null")
+      uri = urlEqualTo("/post/dev/null")
     ),
     postMatchingOnBody(
       uri = urlEqualTo("/post/body/match/true"),
