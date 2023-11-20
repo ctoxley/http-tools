@@ -25,5 +25,8 @@ jobs:
         cache: 'sbt'
     - name: Start HTTP Stub
       run: sbt "httpStub / run"
+    - name: Health check
+      continue-on-error: false
+      run: curl http://localhost:7010/get/empty
     - name: Run tests
       run: sbt test
