@@ -1,12 +1,27 @@
 package com.http.stub.dynamic
 
+import org.slf4j.LoggerFactory
+
 import java.util.concurrent.ConcurrentHashMap
 
 trait HasIdentity[T] {
   val id: T
 }
 
-class InMemoryStore[I, D <: HasIdentity[I]] {
+class TypedInMemoryStore[I, D <: HasIdentity[I]] {
+
+  val cache = new SimpleInMemoryStore[I, D]()
+
+  def get(id: I): Option[D] = cache.get(id)
+
+  def store(data: D) = cache.store(data.id, data)
+
+  def delete(id: I): Option[D] = cache.delete(id)
+}
+
+class SimpleInMemoryStore[I, D] {
+
+  private val logger = LoggerFactory.getLogger(getClass)
 
   val cache = new ConcurrentHashMap[I, D]()
 
@@ -15,14 +30,23 @@ class InMemoryStore[I, D <: HasIdentity[I]] {
     if (data == null) None else Some(data)
   }
 
-  def store(data: D) = cache.put(data.id, data)
+  def store(id: I, data: D) = {
+    cache.put(id, data)
+    logStoreInteraction(id, s"Stored $data")
+  }
 
   def delete(id: I): Option[D] = {
     get(id) match {
       case Some(d) =>
-        cache.remove(id)
+        val rd = cache.remove(id)
+        logStoreInteraction(id, s"Removed $rd")
         Some(d)
       case _ => None
     }
+  }
+
+  private def logStoreInteraction(id: I, operation: String) = {
+    logger.info("{}. ID[{}].", operation, id)
+    logger.info("Cache contains {}", cache)
   }
 }

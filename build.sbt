@@ -21,7 +21,9 @@ lazy val httpStub = (project in file("modules/http-stub"))
       libraryDependencies ++= Seq(
           "com.github.tomakehurst" % "wiremock" % "3.0.0-beta-10",
           "com.lihaoyi" %% "upickle" % "3.1.2",
-          "org.slf4j" % "slf4j-simple" % "2.0.7",
+          "ch.qos.logback" % "logback-classic" % "1.4.7",
+          "ch.qos.logback" % "logback-core" % "1.4.7",
+          "org.slf4j" % "slf4j-api" % "2.0.5",
           "com.lihaoyi" %% "utest" % "0.8.1" % "test"
       )
   )
