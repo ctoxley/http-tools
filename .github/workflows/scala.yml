@@ -14,8 +14,7 @@ permissions:
 jobs:
 
   build:
-    runs-on: ubuntu-latest
-    container: ubuntu
+    container: sbtscala/scala-sbt
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 11
