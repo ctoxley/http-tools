@@ -14,6 +14,7 @@ permissions:
 jobs:
 
   build:
+    runs-on: ubuntu-latest
     container: sbtscala/scala-sbt
     steps:
     - uses: actions/checkout@v3
