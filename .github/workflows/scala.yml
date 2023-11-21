@@ -15,7 +15,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    container: sbtscala/scala-sbt
+    container: sbtscala/scala-sbt:eclipse-temurin-17.0.4_1.7.1_3.2.0
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 11
