@@ -19,9 +19,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Start HTTP Stub
-      run: sbt "httpStub / run"
-    - name: Health check
-      continue-on-error: false
-      run: curl http://127.0.0.1:7010/get/empty
-    - name: Run tests
-      run: sbt test
+      run: sbt "httpStub / run" && sbt test
