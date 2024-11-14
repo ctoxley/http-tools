@@ -1,37 +1,47 @@
 package com.http.script
 
-import utest.{TestSuite, Tests, assert, intercept, test}
+import com.http.script.JsonResponse.{isEqualByPath, isPresentAndNotNull, isPresentAndNotNullByPath}
+import com.http.script.client.{FilmClient, GetClient}
+import utest.{TestSuite, Tests, assert, test}
 
 object JsonResponseTest  extends TestSuite {
 
+  val response = GetClient.getFile
+
   val tests = Tests {
-    test("Get") {
-      val response = GetClient.getFile
-      assert(response("name").str == "get-file")
-      assert(response.strObjTry("name") == Some("get-file"))
-      assert(response.strObjTry("notPresent") == None)
-      assert(response.getObjByPath("level-1.level-2.level-3")("name").str == "level-3")
+    test("Response status codes") {
+      assert(GetClient.getFile.statusOfSuccess)
+      assert(GetClient.getFile.statusOk)
+      assert(FilmClient.get("notPresent").statusNotFound)
     }
-    test("Validation") {
-      val response = GetClient.getFile
-
-      val requiredNotPresent = intercept[AssertionError] {
-        response.required("notPresent")
-      }
-      assert(requiredNotPresent.getMessage.startsWith(s"Required field[notPresent] not present in JSON[${response.text}]."))
-
-      val requiredPresentButNull = intercept[AssertionError] {
-        response.required("i-am-null")
-      }
-      assert(requiredPresentButNull.getMessage.startsWith(s"Required field[i-am-null] present in JSON[${response.text}] but value null."))
-
-      val assertNotEqual = intercept[AssertionError] {
-        response.assert("name", "incorrect-value")
-      }
-      assert(assertNotEqual.getMessage.startsWith(s"Field[name] contains unexpected value[get-file] as expected[incorrect-value]."))
-
-      assert(response.assert("name", "get-file"))
-
+    test("Get") {
+      assert(response("name").str == "get-file")
+      assert(response.fieldOpt("name") == Some("get-file"))
+      assert(response.fieldOpt("notPresent") == None)
+      assert(response.navigateTo("level-1").map(_.apply("name").str) == Some("level-1"))
+      assert(response.navigateTo("level-1.level-2.level-3").map(_.apply("name").str) == Some("level-3"))
+      assert(response.navigateTo("notPresent") == None)
+      assert(response.navigateTo("level-1.level-2.notPresent") == None)
+    }
+    test("Equal by path not present") {
+      assert(isEqualByPath("notPresent", "nothing", response) == false)
+    }
+    test("Equal by path null value") {
+      assert(isEqualByPath("i-am-null", "nothing", response) == false)
+    }
+    test("Equal by path") {
+      assert(isEqualByPath("level-1.level-2.name", "level-2", response))
+    }
+    test("Is present, not present") {
+      assert(isPresentAndNotNull("notPresent", response) == false)
+      assert(isPresentAndNotNullByPath("level-1.level-2.notPresent", response) == false)
+    }
+    test("Is present, null value") {
+      assert(isPresentAndNotNull("i-am-null", response) == false)
+    }
+    test("Is present") {
+      assert(isPresentAndNotNull("name", response))
+      assert(isPresentAndNotNullByPath("level-1.level-2.level-3.name", response))
     }
   }
 }

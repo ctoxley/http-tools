@@ -5,41 +5,58 @@ import ujson.Value.Value
 
 import scala.annotation.tailrec
 
-case class JsonResponse(response: Response) {
+sealed trait ValidationResult
+case object Success extends ValidationResult
+case class Failure(message: String) extends ValidationResult
 
-  lazy val json = ujson.read(response)
+case class JsonResponse(json: Value, statusCode: Int) {
+
   lazy val text = ujson.write(json)
+
+  lazy val statusOfSuccess = statusCode >= 200 && statusCode <= 299
+  lazy val statusOk = statusCode == 200
+  lazy val statusNoContent = statusCode == 204
+  lazy val statusBadRequest = statusCode == 400
+  lazy val statusNotFound = statusCode == 404
+  lazy val statusConflicted = statusCode == 409
 
   def apply(field: String): Value = json(field)
 
-  def isSuccess = response.statusCode >= 200 && response.statusCode <= 299
+  def fieldExists(field: String): Boolean = json.obj.contains(field)
 
-  def strObjTry(field: String): Option[String] = if (json.obj.contains(field))
-    json(field).strOpt else None
+  def fieldOpt(field: String): Option[String] =
+    if (fieldExists(field)) json(field).strOpt else None
 
-  def getObjByPath(path: String): Value = {
+  def navigateTo(path: String): Option[Value] = {
     @tailrec
-    def it(path: String, json: Value): Value = path.split("\\.") match {
-      case Array(head) => json(head)
-      case Array(head, tail@_*) => it(tail.mkString("."), json(head))
+    def it(path: String, json: Value): Option[Value] = path.split("\\.") match {
+      case Array(head) => if (json.obj.contains(head)) Some(json(head)) else None
+      case Array(head, tail@_*) => if(json.obj.contains(head)) it(tail.mkString("."), json(head)) else None
     }
     it(path, json)
   }
+}
 
-  def assert(field: String, expected: String): Boolean = {
-    required(field)
-    val areEqual = json(field).str == expected
-    if(areEqual == false) {
-      throw new AssertionError(s"Field[$field] contains unexpected value[${json(field).str}] as expected[$expected].")
-    }
-    areEqual
+object JsonResponse {
+
+  def apply(response: Response): JsonResponse = {
+    val body = if (response.contentLength == Some(0)) ujson.Null else ujson.read(response)
+    JsonResponse(body, response.statusCode)
   }
 
-  def required(field: String): Unit = {
-    if (json.obj.contains(field) == false)
-      throw new AssertionError(s"Required field[$field] not present in JSON[$text].")
-    if (json(field).isNull)
-      throw new AssertionError(s"Required field[$field] present in JSON[$text] but value null.")
+  def isEqualByPath(path: String, expected: String, obj: JsonResponse): Boolean =
+    obj.navigateTo(path).filter(_.isNull == false).map(_.str).contains(expected)
+
+  def isEqual(field: String, expected: String, obj: JsonResponse): Boolean =
+    isEqualByPath(field, expected, obj)
+
+  def isPresentAndNotNullByPath(path: String, jsonResponse: JsonResponse): Boolean =
+    jsonResponse.navigateTo(path).filter(_.isNull == false).isDefined
+
+  def isPresentAndNotNull(field: String, jsonResponse: JsonResponse): Boolean = {
+    val fieldExists = jsonResponse.fieldExists(field)
+    val fieldNotNull = fieldExists && jsonResponse(field).isNull == false
+    fieldExists && fieldNotNull
   }
 }
 

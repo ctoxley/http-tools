@@ -24,10 +24,9 @@ jobs:
         distribution: 'temurin'
         cache: 'sbt'
     - name: Start HTTP Stub
-      run: sbt "httpStub / run" &
-    - name: Port check
-      run: netstat -Watnl | grep LISTEN
+      run: sbt "httpStub / run"
     - name: Check http stub running
+      continue-on-error: false
       run: curl http://localhost:7010/get/empty
     - name: Run tests
       run: sbt test

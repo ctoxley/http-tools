@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathTemplate": "/get/{pathParam}",
+    "queryParameters": {
+      "queryParam": {
+        "matches": ".*"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "transformers": [
+      "response-template"
+    ],
+    "jsonBody": {
+      "pathParam": "{{request.path.[1]}}",
+      "queryParam": "{{request.query.queryParam}}"
+    }
+  }
+}
+

@@ -1,4 +1,6 @@
-package com.http.script
+package com.http.script.client
+
+import com.http.script.{JsonResponse, SchemeAndBase}
 
 object PostClient {
 

@@ -15,6 +15,11 @@ object GetMappings extends Gets {
       uri = urlEqualTo("/get/empty")
     ),
     get(
+      uri = urlEqualTo("/get/fixed-delay"),
+      responseBody = s"""{"delay":"10 seconds"}""",
+      additionalResponseMapping = _.withFixedDelay(10000)
+    ),
+    get(
       uri = urlMatching("/get/param1/(.*)/param2/(.*)"),
       responseBody = s"""{"param1":"$thirdPathParam","param2":"$fifthPathParam"}"""
     ),

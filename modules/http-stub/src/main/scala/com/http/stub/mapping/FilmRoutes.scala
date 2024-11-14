@@ -9,7 +9,9 @@ object FilmRoutes {
   val endpoint = new FilmEndpoint
 
   val all: Map[EndpointDefinition, Endpoint] = Map[EndpointDefinition, Endpoint](
+    Get("/films") -> endpoint.listAll,
     Get("/film/*") -> endpoint.get,
+    Post("/films/delete-all") -> endpoint.deleteAll,
     Post("/film") -> endpoint.post,
     Delete("/film/*") -> endpoint.delete,
   )

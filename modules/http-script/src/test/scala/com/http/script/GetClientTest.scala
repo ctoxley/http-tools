@@ -1,5 +1,6 @@
 package com.http.script
 
+import com.http.script.client.GetClient
 import utest._
 
 object GetClientTest extends TestSuite {
@@ -24,6 +25,10 @@ object GetClientTest extends TestSuite {
     test("Get only match request if name set to true") {
       val response = GetClient.getWithQueryParamMatchTrueOnly
       assert(response.text == """{"name":"true"}""")
+    }
+    test("Get path param and query param") {
+      val response = GetClient.getPathParamAndQueryParam("pathParam", "queryParam")
+      assert(response.text == """{"pathParam":"pathParam","queryParam":"queryParam"}""")
     }
   }
 }

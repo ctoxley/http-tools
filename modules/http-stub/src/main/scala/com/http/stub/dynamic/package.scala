@@ -15,7 +15,11 @@ package object dynamic {
   case class Output(status: Int, resource: String)
 
   object Output {
+    val ok = Output(NO_CONTENT_204, "")
+    val notFound = Output(NOT_FOUND_404, "")
+
     def ok(body: String): Output = Output(OK_200, body)
-    def notFound: Output = Output(NOT_FOUND_404, "")
+    def conflict(message: String, code: String = "resource-already-exists"): Output =
+      Output(CONFLICT_409, s"""{"error":{"message":"$message","code":"$code"}}""")
   }
 }

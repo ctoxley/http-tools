@@ -3,6 +3,7 @@ package com.http.stub.dynamic
 import org.slf4j.LoggerFactory
 
 import java.util.concurrent.ConcurrentHashMap
+import scala.jdk.CollectionConverters.IterableHasAsScala
 
 trait HasIdentity[T] {
   val id: T
@@ -11,6 +12,10 @@ trait HasIdentity[T] {
 class TypedInMemoryStore[I, D <: HasIdentity[I]] {
 
   val cache = new SimpleInMemoryStore[I, D]()
+
+  def reset() = cache.reset()
+
+  def allValues = cache.allValues
 
   def get(id: I): Option[D] = cache.get(id)
 
@@ -24,6 +29,10 @@ class SimpleInMemoryStore[I, D] {
   private val logger = LoggerFactory.getLogger(getClass)
 
   val cache = new ConcurrentHashMap[I, D]()
+
+  def reset() = cache.clear()
+
+  def allValues = cache.values().asScala.toList
 
   def get(id: I): Option[D] = {
     val data = cache.get(id)

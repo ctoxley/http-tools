@@ -1,4 +1,6 @@
-package com.http.script
+package com.http.script.client
+
+import com.http.script.{JsonResponse, SchemeAndBase}
 
 object GetClient {
 
@@ -16,4 +18,7 @@ object GetClient {
 
   def getWithQueryParamMatchTrueOnly: JsonResponse =
     JsonResponse(requests.get(s"$BaseUri/query-param/match/name/true?name=true"))
+
+  def getPathParamAndQueryParam(pathParam: String, queryParam: String): JsonResponse =
+    JsonResponse(requests.get(s"$BaseUri/$pathParam?queryParam=$queryParam"))
 }

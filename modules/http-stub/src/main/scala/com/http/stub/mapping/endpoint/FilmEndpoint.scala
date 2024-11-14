@@ -11,6 +11,14 @@ class FilmEndpoint {
 
   implicit val filmRW: ReadWriter[Film] = macroRW
 
+  def deleteAll(input: Input) = {
+    store.reset
+    Output.ok
+  }
+
+  def listAll(input: Input) =
+    Output.ok(store.allValues.mkString("[", ",", "]"))
+
   def get(input: Input): Output = input.path.second match {
     case Some(id) =>
       store.get(id) match {
@@ -23,8 +31,12 @@ class FilmEndpoint {
 
   def post(input: Input): Output = {
     val film = read[Film](input.body)
-    store.store(film)
-    Output.ok(input.body)
+    store.get(film.id) match {
+      case Some(f) => Output.conflict(s"Film with ID[${f.id}] already exists.")
+      case _ =>
+        store.store(film)
+        Output.ok(input.body)
+    }
   }
 
   def delete(input: Input): Output = input.path.second match {

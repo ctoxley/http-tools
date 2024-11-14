@@ -23,7 +23,7 @@ object Application extends App {
   private def startServices(services: Seq[MockService]) = {
     services.collect { case s: WireMockService => s }.foreach(startWireMockService)
     val dynaMockServices = services.collect { case s: DynaMockService => s }
-    if (dynaMockServices.isEmpty == false) {
+    if (dynaMockServices.nonEmpty) {
       val dynaMockServer = DynaMockServer()
       dynaMockServices.foreach { service =>
         logger.info("Starting DynaMock service {} on {}:{}", service.name, service.host, service.port)
