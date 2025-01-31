@@ -1,41 +1,51 @@
 package com.http.script
 
+import com.http.script.JsonAsserts.assertConflicted
 import com.http.script.TestData.aFilm
 import com.http.script.client.{Film, FilmClient}
-import requests.RequestFailedException
-import utest.{TestSuite, Tests, assert, intercept, test}
+import utest.{TestSuite, Tests, assert, test}
 
 object FilmClientTest  extends TestSuite {
 
-  val tests = Tests {
+  override def utestAfterAll(): Unit = FilmClient.deleteAll
+
+  val tests: Tests = Tests {
     test("fail to get film") {
+      assertFilmNotPresent("not-present")
+    }
+    test("put and get film") {
       val film = aFilm()
-      assertFilmNotPresent(film)
+      FilmClient.put(film)
+      assertFilmPresent(film)
     }
     test("post and get film") {
       val film = aFilm()
       FilmClient.post(film)
       assertFilmPresent(film)
     }
+    test("post twice expecting conflict") {
+      val film = aFilm()
+      FilmClient.post(film)
+      val response = FilmClient.post(film)
+      assertConflicted(response, expectedMessage = s"Film with ID[${film.id}] already exists.")
+    }
     test("delete film") {
       val film = aFilm()
       FilmClient.post(film)
       assertFilmPresent(film)
       FilmClient.delete(film.id)
-      assertFilmNotPresent(film)
+      assertFilmNotPresent(film.id)
     }
   }
 
-  private def assertFilmNotPresent(film: Film): Unit = {
-    val notFound = intercept[RequestFailedException] {
-      FilmClient.get(film.id)
-    }
-    assert(notFound.response.is4xx)
+  private def assertFilmNotPresent(id: String): Unit = {
+    val response = FilmClient.get(id)
+    assert(response.isNotFound)
   }
 
   private def assertFilmPresent(film: Film): Unit = {
     val response = FilmClient.get(film.id)
-    assert(response.statusOfSuccess)
+    assert(response.is2xx)
     assert(response.text == s"""{"id":"${film.id}","name":"${film.name}"}""")
   }
 }

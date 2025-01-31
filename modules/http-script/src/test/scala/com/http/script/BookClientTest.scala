@@ -1,54 +1,50 @@
 package com.http.script
 
-import com.http.script.JsonResponse.isEqual
+import com.http.script.JsonAsserts.{assertConflicted, assertOk}
 import com.http.script.TestData.aBook
 import com.http.script.client.{Book, BookClient}
-import requests.RequestFailedException
-import utest.{TestSuite, Tests, assert, intercept, test}
+import utest.{TestSuite, Tests, assert, test}
 
-object BookClientTest  extends TestSuite {
+object BookClientTest extends TestSuite {
 
-  val tests = Tests {
+  override def utestAfterAll(): Unit = BookClient.deleteAll
+
+  val tests: Tests = Tests {
     test("fail to get book") {
-      val book = aBook
-      assertBookNotPresent(book)
+      assertBookNotPresent("not-present")
     }
     test("put and get book") {
-      val book = aBook
+      val book = aBook()
       BookClient.put(book)
       assertBookPresent(book)
     }
     test("post and get book") {
-      val book = aBook
+      val book = aBook()
       BookClient.post(book)
       assertBookPresent(book)
     }
     test("post twice expecting conflict") {
-      val book = aBook
+      val book = aBook()
       BookClient.post(book)
       val response = BookClient.post(book)
-      assert(response.statusConflicted)
-      assert(isEqual("error.message", s"Book with ID[${book.id}] already exists.", response))
+      assertConflicted(response, s"Book with ID[${book.id}] already exists.")
     }
     test("delete book") {
-      val book = aBook
+      val book = aBook()
       BookClient.put(book)
       assertBookPresent(book)
       BookClient.delete(book.id)
-      assertBookNotPresent(book)
+      assertBookNotPresent(book.id)
     }
   }
 
-  private def assertBookNotPresent(book: Book): Unit = {
-    val notFound = intercept[RequestFailedException] {
-      BookClient.get(book.id)
-    }
-    assert(notFound.response.is4xx)
+  private def assertBookNotPresent(id: String): Unit = {
+    val response = BookClient.get(id)
+    assert(response.isNotFound)
   }
 
   private def assertBookPresent(book: Book): Unit = {
     val response = BookClient.get(book.id)
-    assert(response.statusOfSuccess)
-    assert(response.text == s"""{"id":"${book.id}","title":"${book.title}"}""")
+    assertOk(response, expectedBody = s"""{"id":"${book.id}","title":"${book.title}"}""")
   }
 }

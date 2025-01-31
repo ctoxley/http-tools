@@ -2,7 +2,7 @@ package com.http.stub.mapping.endpoint
 
 import com.http.stub.dynamic.{Input, Output, SimpleInMemoryStore}
 
-class BookEndpoint(id: String) {
+class JsonEndpoints(id: String) {
 
   val store = new SimpleInMemoryStore[String, String]
 
@@ -12,7 +12,8 @@ class BookEndpoint(id: String) {
   }
 
   def listAll(input: Input) =
-    Output.ok(store.allValues.mkString("[", ",", "]"))
+    if (store.allValues.isEmpty) Output.ok("[]")
+    else Output.ok(store.allValues.mkString("[", ",", "]"))
 
   def get(input: Input): Output = input.path.second match {
     case Some(id) =>
@@ -26,8 +27,12 @@ class BookEndpoint(id: String) {
 
   def post(input: Input): Output = ujson.read(input.body)(id).strOpt match {
     case Some(id) =>
-      store.store(id, input.body)
-      Output.ok(input.body)
+      store.get(id) match {
+        case Some(_) => Output.conflict(s"Book with ID[$id] already exists.")
+        case _ =>
+          store.store(id, input.body)
+          Output.ok(input.body)
+      }
     case _ =>
       Output.notFound
   }
@@ -37,7 +42,7 @@ class BookEndpoint(id: String) {
       store.store(id, input.body)
       Output.ok(input.body)
     case _ =>
-      Output.notFound
+      Output.badRequest
   }
 
   def delete(input: Input): Output = input.path.second match {

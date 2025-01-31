@@ -1,10 +1,10 @@
 package com.http.script.client
 
-import com.http.script.{JsonResponse, SchemeAndBase}
+import com.http.script.{JsonResponse, schemeAndBase}
 
 object GetClient {
 
-  val BaseUri = s"$SchemeAndBase:7010/get"
+  val BaseUri = s"$schemeAndBase:7010/get"
 
   def getFile: JsonResponse = JsonResponse(requests.get(s"$BaseUri/file"))
 

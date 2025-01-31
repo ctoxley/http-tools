@@ -8,7 +8,7 @@ object PostClientTest extends TestSuite {
   val tests = Tests {
     test("Post to dev null") {
       val response = PostClient.postToDevNull
-      assert(response.statusOfSuccess)
+      assert(response.is2xx)
     }
     test("Post matching body contains true") {
       val response = PostClient.postMatchingBody

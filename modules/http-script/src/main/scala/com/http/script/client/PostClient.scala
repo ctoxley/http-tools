@@ -1,10 +1,10 @@
 package com.http.script.client
 
-import com.http.script.{JsonResponse, SchemeAndBase}
+import com.http.script.{JsonResponse, schemeAndBase}
 
 object PostClient {
 
-  val BaseUri = s"$SchemeAndBase:7020/post"
+  val BaseUri = s"$schemeAndBase:7020/post"
 
   def postToDevNull = JsonResponse(requests.post(s"$BaseUri/dev/null"))
 

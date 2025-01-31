@@ -17,6 +17,7 @@ package object dynamic {
   object Output {
     val ok = Output(NO_CONTENT_204, "")
     val notFound = Output(NOT_FOUND_404, "")
+    val badRequest = Output(BAD_REQUEST_400, "")
 
     def ok(body: String): Output = Output(OK_200, body)
     def conflict(message: String, code: String = "resource-already-exists"): Output =

@@ -5,9 +5,7 @@ import upickle.default.{ReadWriter, macroRW, read, write}
 
 case class Film(id: String, name: String) extends HasIdentity[String]
 
-class FilmEndpoint {
-
-  val store = new TypedInMemoryStore[String, Film]
+class FilmEndpoints(store: TypedInMemoryStore[String, Film]) {
 
   implicit val filmRW: ReadWriter[Film] = macroRW
 
@@ -17,7 +15,8 @@ class FilmEndpoint {
   }
 
   def listAll(input: Input) =
-    Output.ok(store.allValues.mkString("[", ",", "]"))
+    if (store.allValues.isEmpty) Output.ok("[]")
+    else Output.ok(store.allValues.mkString("[", ",", "]"))
 
   def get(input: Input): Output = input.path.second match {
     case Some(id) =>
@@ -37,6 +36,12 @@ class FilmEndpoint {
         store.store(film)
         Output.ok(input.body)
     }
+  }
+
+  def put(input: Input): Output = {
+    val film = read[Film](input.body)
+    store.store(film)
+    Output.ok(input.body)
   }
 
   def delete(input: Input): Output = input.path.second match {
