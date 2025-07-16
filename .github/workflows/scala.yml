@@ -24,9 +24,9 @@ jobs:
         distribution: 'temurin'
         cache: 'sbt'
     - name: Start Dynamic Stub
-      run: sbt runDynamicStub
+      run: sbt httpDynamicStub / run
     - name: Start Static Stub
-      run: sbt runStaticStub
+      run: sbt httpStaticStub / run
     - name: Check static stub running
       continue-on-error: false
       run: curl http://localhost:7010/get/empty
