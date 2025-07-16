@@ -25,4 +25,4 @@ jobs:
       with:
         apps: sbt
     - name: Run tests
-      run: sbt runDynamicStub; stb runStaticStub; stb test 
+      run: sbt runDynamicStub; sbt runStaticStub; sbt test 
