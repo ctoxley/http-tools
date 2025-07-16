@@ -28,5 +28,5 @@ jobs:
       run: | 
         sbt "runDynamicStub &"
         sbt "runStaticStub &"
-        sleep 5000
+        sleep 5
         sbt test
