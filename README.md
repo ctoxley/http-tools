@@ -6,7 +6,7 @@
 
 This module wraps WireMock and provides a template for stubbing endpoints.
 
-To run use:
+To run use both static and dynamic stubs:
 
 ```sbt runHttpStub```
 
@@ -18,10 +18,10 @@ To run use:
 
 ### Dynamic stub
 
-For a stub that can cache data please see `DynaMockService`.
+For a stub that can cache data please see `http-dynamic-stub`.
 
 ## http-script
 
 This module is a base for creating scripts to call http endpoints.
 
-To run the tests you need `http-stub` running. 
+To run the tests you need `http-dynamic-stub` and `http-static-stub` running. 

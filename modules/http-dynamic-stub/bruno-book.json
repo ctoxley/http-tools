@@ -1,0 +1,188 @@
+{
+  "name": "book",
+  "version": "1",
+  "items": [
+    {
+      "type": "http",
+      "name": "book/1",
+      "filename": "book-1.bru",
+      "seq": 4,
+      "request": {
+        "url": "http:localhost:7040/book/1",
+        "method": "PUT",
+        "headers": [
+          {
+            "name": "",
+            "value": "",
+            "enabled": false
+          }
+        ],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "{\"id\":\"1\",\"name\":\"Nineteen Eighty-Four\"}",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "book/_",
+      "filename": "book-_.bru",
+      "seq": 5,
+      "request": {
+        "url": "http:localhost:7040/book/1",
+        "method": "DELETE",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "book",
+      "filename": "book.bru",
+      "seq": 3,
+      "request": {
+        "url": "http:localhost:7040/book",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "",
+            "value": "",
+            "enabled": false
+          }
+        ],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "{\"id\":\"2\",\"name\":\"Children of Time\"}",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "books",
+      "filename": "books.bru",
+      "seq": 2,
+      "request": {
+        "url": "http://localhost:7040/books",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "books",
+      "filename": "del-books.bru",
+      "seq": 7,
+      "request": {
+        "url": "http:localhost:7040/books",
+        "method": "DELETE",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "book/_",
+      "filename": "get-book-_.bru",
+      "seq": 1,
+      "request": {
+        "url": "http://localhost:7040/book/1",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    }
+  ],
+  "environments": [],
+  "brunoConfig": {
+    "version": "1",
+    "name": "book",
+    "type": "collection",
+    "ignore": [
+      "node_modules",
+      ".git"
+    ],
+    "size": 0.0008211135864257812,
+    "filesCount": 6
+  }
+}

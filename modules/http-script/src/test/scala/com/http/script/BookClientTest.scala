@@ -7,7 +7,9 @@ import utest.{TestSuite, Tests, assert, test}
 
 object BookClientTest extends TestSuite {
 
-  override def utestAfterAll(): Unit = BookClient.deleteAll
+  override def utestAfterAll(): Unit = BookClient.deleteAll()
+
+  override def utestBeforeEach(path: Seq[String]): Unit = BookClient.deleteAll()
 
   val tests: Tests = Tests {
     test("fail to get book") {
@@ -27,7 +29,7 @@ object BookClientTest extends TestSuite {
       val book = aBook()
       BookClient.post(book)
       val response = BookClient.post(book)
-      assertConflicted(response, s"Book with ID[${book.id}] already exists.")
+      assertConflicted(response, s"Resource with ID[${book.id}] already exists.")
     }
     test("delete book") {
       val book = aBook()

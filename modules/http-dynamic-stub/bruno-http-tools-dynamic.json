@@ -1,0 +1,464 @@
+{
+  "name": "http-tools-dynamic",
+  "version": "1",
+  "items": [
+    {
+      "type": "http",
+      "name": "book/1",
+      "filename": "book-1.bru",
+      "seq": 4,
+      "request": {
+        "url": "http:localhost:7030/book/1",
+        "method": "PUT",
+        "headers": [
+          {
+            "name": "",
+            "value": "",
+            "enabled": false
+          }
+        ],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "{\"id\":\"1\",\"name\":\"Nineteen Eighty-Four\"}",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "book/_",
+      "filename": "book-_.bru",
+      "seq": 5,
+      "request": {
+        "url": "http:localhost:7030/book/1",
+        "method": "DELETE",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "book",
+      "filename": "book.bru",
+      "seq": 3,
+      "request": {
+        "url": "http:localhost:7030/book",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "",
+            "value": "",
+            "enabled": false
+          }
+        ],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "{\"id\":\"2\",\"name\":\"Children of Time\"}",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "books",
+      "filename": "books.bru",
+      "seq": 2,
+      "request": {
+        "url": "http://localhost:7030/books",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "books",
+      "filename": "del-books.bru",
+      "seq": 7,
+      "request": {
+        "url": "http:localhost:7030/books",
+        "method": "DELETE",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "book/_",
+      "filename": "get-book-_.bru",
+      "seq": 1,
+      "request": {
+        "url": "http://localhost:7030/book/1",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "folder",
+      "name": "http-tools-get",
+      "filename": "http-tools-get",
+      "seq": 1,
+      "items": [
+        {
+          "type": "folder",
+          "name": "http-tools-get",
+          "filename": "http-tools-get",
+          "seq": 1,
+          "items": [
+            {
+              "type": "http",
+              "name": "get-empty",
+              "filename": "get-empty.bru",
+              "seq": 3,
+              "request": {
+                "url": "http://localhost:7010/get/empty",
+                "method": "GET",
+                "headers": [],
+                "params": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": [],
+                  "file": []
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "docs": "",
+                "auth": {
+                  "mode": "inherit"
+                }
+              }
+            },
+            {
+              "type": "http",
+              "name": "get-file",
+              "filename": "get-file.bru",
+              "seq": 2,
+              "request": {
+                "url": "http://localhost:7010/get/file",
+                "method": "GET",
+                "headers": [],
+                "params": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": [],
+                  "file": []
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "docs": "",
+                "auth": {
+                  "mode": "inherit"
+                }
+              }
+            },
+            {
+              "type": "http",
+              "name": "get-fixed-delay",
+              "filename": "get-fixed-delay.bru",
+              "seq": 4,
+              "request": {
+                "url": "http://localhost:7010/get/fixed-delay",
+                "method": "GET",
+                "headers": [],
+                "params": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": [],
+                  "file": []
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "docs": "",
+                "auth": {
+                  "mode": "inherit"
+                }
+              }
+            },
+            {
+              "type": "http",
+              "name": "get-match-body",
+              "filename": "get-match-body.bru",
+              "seq": 7,
+              "request": {
+                "url": "http://localhost:7010/get/query-param/match/name/true?name=true",
+                "method": "GET",
+                "headers": [],
+                "params": [
+                  {
+                    "name": "name",
+                    "value": "true",
+                    "type": "query",
+                    "enabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": [],
+                  "file": []
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "docs": "",
+                "auth": {
+                  "mode": "inherit"
+                }
+              }
+            },
+            {
+              "type": "http",
+              "name": "get-param",
+              "filename": "get-param.bru",
+              "seq": 8,
+              "request": {
+                "url": "http://localhost:7010/get/path?query=value",
+                "method": "GET",
+                "headers": [],
+                "params": [
+                  {
+                    "name": "query",
+                    "value": "value",
+                    "type": "query",
+                    "enabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": [],
+                  "file": []
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "docs": "",
+                "auth": {
+                  "mode": "inherit"
+                }
+              }
+            },
+            {
+              "type": "http",
+              "name": "get-path-param",
+              "filename": "get-path-param.bru",
+              "seq": 5,
+              "request": {
+                "url": "http://localhost:7010/get/param1/one/param2/two",
+                "method": "GET",
+                "headers": [],
+                "params": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": [],
+                  "file": []
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "docs": "",
+                "auth": {
+                  "mode": "inherit"
+                }
+              }
+            },
+            {
+              "type": "http",
+              "name": "get-query-param",
+              "filename": "get-query-param.bru",
+              "seq": 6,
+              "request": {
+                "url": "http://localhost:7010/get/query-param/list/two?list=p1&list=p2",
+                "method": "GET",
+                "headers": [],
+                "params": [
+                  {
+                    "name": "list",
+                    "value": "p1",
+                    "type": "query",
+                    "enabled": true
+                  },
+                  {
+                    "name": "list",
+                    "value": "p2",
+                    "type": "query",
+                    "enabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": [],
+                  "file": []
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "docs": "",
+                "auth": {
+                  "mode": "inherit"
+                }
+              }
+            },
+            {
+              "type": "http",
+              "name": "post-body-match",
+              "filename": "post-body-match.bru",
+              "seq": 9,
+              "request": {
+                "url": "http://localhost:7020/post/body/match/true",
+                "method": "POST",
+                "headers": [],
+                "params": [],
+                "body": {
+                  "mode": "text",
+                  "text": "true",
+                  "formUrlEncoded": [],
+                  "multipartForm": [],
+                  "file": []
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "docs": "",
+                "auth": {
+                  "mode": "inherit"
+                }
+              }
+            },
+            {
+              "type": "http",
+              "name": "post-dev-null",
+              "filename": "post-dev-null.bru",
+              "seq": 9,
+              "request": {
+                "url": "http://localhost:7020/post/dev/null",
+                "method": "POST",
+                "headers": [],
+                "params": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": [],
+                  "file": []
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "docs": "",
+                "auth": {
+                  "mode": "inherit"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "environments": [],
+  "brunoConfig": {
+    "version": "1",
+    "name": "http-tools-dynamic",
+    "type": "collection",
+    "ignore": [
+      "node_modules",
+      ".git"
+    ]
+  }
+}

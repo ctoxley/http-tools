@@ -1,24 +1,24 @@
 package com.http.script.client
 
-import com.http.script.{JsonResponse, baseUrl}
+import com.http.script.{JsonResponse, applicationJson, schemeAndHostAnd}
 
 case class Book(id: String, title: String)
 
 object BookClient {
 
-  val url = baseUrl(7040)
+  private val baseUrl: String => String = schemeAndHostAnd(7030)
 
-  def deleteAll: JsonResponse = JsonResponse(requests.delete(url("/books")))
+  def deleteAll(): JsonResponse = JsonResponse(requests.delete(baseUrl("/books")))
 
-  def getAll: JsonResponse = JsonResponse(requests.get(url("/books")))
+  def listAll(): JsonResponse = JsonResponse(requests.get(baseUrl("/books")))
 
-  def get(id: String): JsonResponse = JsonResponse(requests.get(url(s"/book/$id")))
+  def get(id: String): JsonResponse = JsonResponse(requests.get(baseUrl(s"/book/$id")))
 
-  def post(book: Book) = JsonResponse(requests.post(url("/book"), headers = Map("Content-Type" -> "application/json"),
+  def post(book: Book): JsonResponse = JsonResponse(requests.post(baseUrl("/book"), headers = applicationJson,
     data = ujson.Obj("id" -> book.id, "title" -> book.title)))
 
-  def put(book: Book) = JsonResponse(requests.put(url(s"/book/${book.id}"), headers = Map("Content-Type" -> "application/json"),
+  def put(book: Book): JsonResponse = JsonResponse(requests.put(baseUrl(s"/book/${book.id}"), headers = applicationJson,
     data = ujson.Obj("id" -> book.id, "title" -> book.title)))
 
-  def delete(id: String): JsonResponse = JsonResponse(requests.delete(url(s"/book/$id")))
+  def delete(id: String): JsonResponse = JsonResponse(requests.delete(baseUrl(s"/book/$id")))
 }

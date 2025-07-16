@@ -5,9 +5,9 @@ import utest.{TestSuite, Tests, intercept, test}
 
 object ValueTest extends TestSuite {
 
-  val json = ujson.Obj("field1" -> "value1", "field2" -> ujson.Null)
+  private val json = ujson.Obj("field1" -> "value1", "field2" -> ujson.Null)
 
-  val tests = Tests {
+  val tests: Tests = Tests {
     test("missing field") {
       val error = intercept[NoSuchElementException] {
         json("noPresent")

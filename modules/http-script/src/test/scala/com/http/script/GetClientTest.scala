@@ -1,14 +1,15 @@
 package com.http.script
 
+import com.http.script.JsonAsserts.assertOk
 import com.http.script.client.GetClient
 import utest._
 
 object GetClientTest extends TestSuite {
 
-  val tests = Tests {
+  val tests: Tests = Tests {
     test("Get file") {
       val response = GetClient.getFile
-      assert(response.text.startsWith("""{"name":"get-file","""))
+      assert(response.text.contains("My first message."))
     }
     test("Get empty") {
       val response = GetClient.getEmpty
@@ -16,19 +17,19 @@ object GetClientTest extends TestSuite {
     }
     test("Get with two params") {
       val response = GetClient.getWithTwoPathParams("one", "two")
-      assert(response.text == """{"param1":"one","param2":"two"}""")
+      assertOk(response, """{"param1":"one","param2":"two"}""")
     }
     test("Get with two params") {
       val response = GetClient.getWithQueryParamsListOfTwo("one", "two")
-      assert(response.text == """{"list":"one,two"}""")
+      assertOk(response, """{"list":"one,two"}""")
     }
     test("Get only match request if name set to true") {
       val response = GetClient.getWithQueryParamMatchTrueOnly
-      assert(response.text == """{"name":"true"}""")
+      assertOk(response, """{"name":"true"}""")
     }
     test("Get path param and query param") {
       val response = GetClient.getPathParamAndQueryParam("pathParam", "queryParam")
-      assert(response.text == """{"pathParam":"pathParam","queryParam":"queryParam"}""")
+      assertOk(response, """{"pathParam":"pathParam","queryParam":"queryParam"}""")
     }
   }
 }
