@@ -24,12 +24,9 @@ jobs:
       uses: coursier/setup-action@v1
       with:
         apps: sbt
-    - name: Start Dynamic Stub
-      run: sbt runDynamicStub &
-    - name: Start Static Stub
-      run: sbt runStaticStub &
-    - name: Check static stub running
-      continue-on-error: false
-      run: curl http://localhost:7010/get/empty
     - name: Run tests
-      run: sbt test
+      run: | 
+        sbt "runDynamicStub &"
+        sbt "runStaticStub &"
+        sleep 5000
+        sbt test
