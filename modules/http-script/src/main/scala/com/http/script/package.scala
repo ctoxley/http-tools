@@ -2,7 +2,7 @@ package com.http
 
 package object script {
 
-  val schemeAndHost: String = "http://127.0.0.1"
+  val schemeAndHost: String = "http://localhost"
 
   val applicationJson: Map[String, String] = Map("Content-Type" -> "application/json")
 

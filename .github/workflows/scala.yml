@@ -24,9 +24,5 @@ jobs:
       uses: coursier/setup-action@v1
       with:
         apps: sbt
-    - name: Start Dynamic Stub
-      run: sbt runDynamicStub
-    - name: Start Static Stub
-      run: sbt runStaticStub
     - name: Run tests
-      run: sbt test
+      run: sbt runDynamicStub; stb runStaticStub; stb test 
