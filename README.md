@@ -8,7 +8,8 @@ This module wraps WireMock and provides a template for stubbing endpoints.
 
 To run use both static and dynamic stubs:
 
-```sbt runHttpStub```
+```sbt runDynamicStub```
+```sbt runStaticStub```
 
 #### Configuration
 

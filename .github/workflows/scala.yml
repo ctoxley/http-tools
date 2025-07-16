@@ -23,9 +23,11 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: 'sbt'
-    - name: Start HTTP Stub
-      run: sbt "httpStub / run"
-    - name: Check http stub running
+    - name: Start Dynamic Stub
+      run: sbt runDynamicStub
+    - name: Start Static Stub
+      run: sbt runStaticStub
+    - name: Check static stub running
       continue-on-error: false
       run: curl http://localhost:7010/get/empty
     - name: Run tests

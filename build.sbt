@@ -1,5 +1,6 @@
 
-addCommandAlias("runHttpStub", "; httpDynamicStub/run; httpStaticStub/run")
+addCommandAlias("runDynamicStub", "; httpDynamicStub/run")
+addCommandAlias("runStaticStub", "; httpStaticStub/run")
 
 lazy val httpScript = (project in file("modules/http-script"))
   .settings(
